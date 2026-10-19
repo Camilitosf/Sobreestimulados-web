@@ -1,0 +1,6 @@
+# Activación de la encuesta
+Crear una base Cloudflare D1 y ejecutar database/encuesta.sql en su consola. Vincularla al proyecto Pages con el nombre ENCUESTA_DB en producción y redesplegar. No introducir claves en el frontend.
+Las respuestas escritas se consultan solo en la consola privada D1:
+SELECT creado, sugerencia FROM votos WHERE opcion='D' ORDER BY id DESC;
+La API solo publica recuentos tras votar; nunca devuelve sugerencias ni tokens. Se usa una cookie funcional de 180 días para recordar el voto. No es una defensa contra bots ni identifica personas únicas: borrar cookies o cambiar navegador permite volver a votar. Antes de campañas masivas conviene añadir Turnstile y límites de solicitudes. Se guardan opción, sugerencia, identificador aleatorio y fecha; revisar el aviso de privacidad y establecer una política de conservación. No se recopilan nombres, correo ni IP en esta tabla. No hay autenticación administrativa pública; el acceso es por tu cuenta Cloudflare. La encuesta queda no disponible mientras no exista el binding o la tabla.
+El módulo scripts/home.mjs debe ejecutarse desde scripts/build.mjs antes de preparar el HTML. Este commit todavía no lo conecta: se solicitará una edición independiente para importar el módulo en build.mjs. No cambies el comando de Cloudflare.

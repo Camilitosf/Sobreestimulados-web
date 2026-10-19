@@ -226,16 +226,91 @@
 </head>
 
 <body>
-  <main>
-    <p class="etiqueta">PRÓXIMAMENTE</p>
-    <h1>Sobreestimulados</h1>
+  <header>
+    <div class="contenedor barra">
+      <a class="marca" href="#inicio">
+        Sobreestimulados<span>.</span>
+      </a>
 
-    <p class="descripcion">
-      Estamos preparando nuestro sitio.
-      Muy pronto encontrarás novedades aquí.
-    </p>
+      <nav aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#comunidad">Comunidad</a>
+        <a
+          href="https://www.instagram.com/sobrestimulados_org/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Instagram ↗
+        </a>
+      </nav>
+    </div>
+  </header>
 
-    <footer>Sobreestimulados · Sitio en construcción</footer>
+  <main id="inicio" class="contenedor">
+    <section class="portada" aria-labelledby="titulo">
+      <p class="etiqueta">
+        MEDICINA · COMUNIDAD · ENERGÍA
+      </p>
+
+      <h1 id="titulo">
+        Medicina con<br>
+        <span>energía propia.</span>
+      </h1>
+
+      <p class="descripcion">
+        Estamos preparando un espacio para aprender,
+        conectar y compartir nuestra pasión por la medicina.
+      </p>
+
+      <div class="acciones">
+        <a class="boton boton-principal" href="#comunidad">
+          Conoce el proyecto
+        </a>
+
+        <a
+          class="boton boton-secundario"
+          href="https://www.instagram.com/sobrestimulados_org/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Síguenos en Instagram ↗
+        </a>
+      </div>
+    </section>
+
+    <section
+      id="comunidad"
+      class="seccion"
+      aria-labelledby="titulo-comunidad"
+    >
+      <h2 id="titulo-comunidad">Lo que estamos preparando</h2>
+
+      <div class="tarjetas">
+        <article class="tarjeta">
+          <span class="categoria">APRENDIZAJE</span>
+          <h3>Fisiología y medicina</h3>
+          <p>
+            Un espacio para explorar conceptos, conectar
+            ideas y aprender juntos. Próximamente.
+          </p>
+        </article>
+
+        <article class="tarjeta">
+          <span class="categoria">COMUNIDAD</span>
+          <h3>Más que estudiar</h3>
+          <p>
+            Novedades, experiencias y proyectos para
+            compartir nuestra vida universitaria.
+          </p>
+        </article>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div class="contenedor">
+      Sobreestimulados · Sitio en construcción
+    </div>
+  </footer>
 </body>
 </html>

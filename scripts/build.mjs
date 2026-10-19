@@ -5,6 +5,7 @@ const root=fileURLToPath(new URL('../',import.meta.url));
 const source=path.join(root,'productos'),output=path.join(root,'public'),target=path.join(output,'productos');
 const sortNames=(a,b)=>a.name.localeCompare(b.name,'es',{numeric:true});
 async function build(){
+ await import('./home.mjs');
  await readFile(path.join(output,'index.html'),'utf8');
  await mkdir(source,{recursive:true});await mkdir(target,{recursive:true});
  const products=Object.create(null);let total=0;

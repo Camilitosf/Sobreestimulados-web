@@ -1,0 +1,30 @@
+/* Ajustes visuales de prueba: retirar este archivo del build revierte la capa visual. */
+body{font-size:14.4px}
+.contenedor,main.contenedor,body>main,body>header:not(:has(.barra)){width:min(1440px,96%);margin-left:auto;margin-right:auto}
+.barra{justify-content:center;gap:14.4px;padding:19.8px 0}
+.barra .marca{flex-basis:100%;text-align:center;font-size:18px}
+.barra nav{justify-content:center}
+nav{gap:21.6px}nav a{font-size:12.6px}
+.portada{max-width:none;text-align:center;padding:40px 0 45px}
+.logo-portada,.logo-productos{display:block;width:153px;max-width:60%;height:auto;margin:0 auto 18px}
+#titulo{font-size:clamp(37.8px,6.3vw,68.4px);margin-bottom:21.6px;letter-spacing:-1.8px}
+.etiqueta{font-size:10.8px;margin-bottom:16.2px}
+.descripcion{font-size:17.1px;margin-left:auto;margin-right:auto}
+.acciones{justify-content:center;gap:12.6px;margin-top:28.8px}
+h2{font-size:25.2px}.tarjeta h3{font-size:20.7px}
+.tarjeta{padding:25.2px}.seccion{padding-bottom:57.6px}
+.boton{font-size:13.5px;padding:10.8px 19.8px;min-height:44px}
+.tarjeta .precio,.precio{font-size:21.6px}.precio small{font-size:11.7px}
+.categoria{font-size:10.8px}footer{font-size:11.7px;padding:23.4px 0}
+body.pagina-productos>header,body.pagina-productos>main{padding:21.6px 0}
+.pagina-productos h1{font-size:28.8px;text-align:center;margin:0 0 18px}
+.pagina-productos main>.nota{text-align:center;margin-bottom:21.6px;overflow-wrap:anywhere}
+.pagina-productos .logo-productos{margin-bottom:16px}
+.pagina-productos .layout{grid-template-columns:198px minmax(0,1fr);gap:21.6px}
+.pagina-productos .filtros{padding:18px}.pagina-productos .filtros h2{font-size:18px}
+.pagina-productos .producto{padding:16.2px}.pagina-productos .producto h3{font-size:16.2px}
+.pagina-productos .nota{font-size:12.6px}.pagina-productos .barra{gap:14.4px}
+input,select,button{min-height:44px}.pagina-productos input,.pagina-productos select{font-size:14.4px}
+.home-link{display:inline-flex;gap:7px;align-items:center;min-height:44px}
+@media(max-width:700px){.pagina-productos .layout{grid-template-columns:1fr}.contenedor,main.contenedor,body>main,body>header:not(:has(.barra)){width:92%}.portada{padding:30px 0 36px}}
+@media(max-width:600px){#titulo{letter-spacing:-.9px}.acciones .boton{width:100%}}

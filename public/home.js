@@ -1,18 +1,31 @@
 'use strict';
 const header=document.querySelector('#home-header'),logo=document.querySelector('.logo-portada');
 if(header&&logo){const small=logo.cloneNode();small.className='logo-header';small.alt='';header.append(small);new IntersectionObserver(([entry])=>{header.classList.toggle('compacto',!entry.isIntersecting&&logo.getBoundingClientRect().top<0);},{threshold:0}).observe(logo);}
-const form=document.querySelector('#votacion');
-if(form){
- const field=form.querySelector('fieldset'),text=document.querySelector('#sugerencia'),status=document.querySelector('#voto-estado'),results=document.querySelector('#voto-resultados');
- const labels={A:'Fonendoscopios',B:'Más Pines/Broches',C:'Portatarjetas',D:'Otra opción'};
- function render(data){
-  if(!data.voted)return;field.disabled=true;results.hidden=false;results.replaceChildren();
-  const total=document.createElement('p');total.textContent=`${data.total} respuestas en total (incluida la tuya).`;results.append(total);
-  for(const key of Object.keys(labels)){const row=document.createElement('p'),bar=document.createElement('progress');const percent=data.total?100*(data.counts[key]||0)/data.total:0;row.textContent=`${key}. ${labels[key]}: ${percent.toFixed(1)}%`;bar.max=100;bar.value=percent;bar.setAttribute('aria-label',row.textContent);results.append(row,bar);}
-  status.textContent='Gracias por participar. Los porcentajes pueden sumar 99,9% o 100,1% por redondeo.';
+const poll=document.querySelector('#encuesta');
+if(poll){
+ const css=document.createElement('link');css.rel='stylesheet';css.href='/poll.css?v=2';document.head.append(css);
+ poll.innerHTML='<div class="poll-card"><h2 id="pregunta">¿Qué te gustaría ver próximamente?</h2><div id="poll-options" aria-label="Opciones de la encuesta"></div><form id="poll-other" hidden><label for="poll-text">¿Qué producto? (máx. 50 caracteres)</label><div class="poll-entry"><input id="poll-text" type="text" maxlength="50" required placeholder="Escribe tu idea" autocomplete="off"><button type="submit">Votar</button></div></form><p id="poll-status" role="status" aria-live="polite">Cargando…</p><details class="poll-privacy"><summary>Privacidad</summary><p>Participación voluntaria. Guardamos tu voto y una cookie funcional por 180 días. Tu sugerencia es privada: no incluyas datos personales. Borrar cookies o cambiar de navegador permite volver a votar.</p></details></div>';
+ const options=poll.querySelector('#poll-options'),other=poll.querySelector('#poll-other'),text=poll.querySelector('#poll-text'),status=poll.querySelector('#poll-status');
+ const labels={A:'Fonendoscopios',B:'Más Pines/Broches',C:'Portatarjetas',D:'Otra opción'},buttons={};
+ let busy=true,voted=false;
+ for(const [key,label] of Object.entries(labels)){
+  const button=document.createElement('button');button.type='button';button.className='poll-choice';button.disabled=true;button.dataset.option=key;
+  const fill=document.createElement('span');fill.className='poll-fill';fill.setAttribute('aria-hidden','true');
+  const name=document.createElement('span');name.className='poll-label';name.textContent=label;
+  const percent=document.createElement('span');percent.className='poll-percent';percent.hidden=true;
+  button.append(fill,name,percent);options.append(button);buttons[key]=button;
+  button.addEventListener('click',()=>{if(busy||voted)return;if(key==='D'){other.hidden=false;text.focus();return;}other.hidden=true;send(key,'');});
  }
- async function request(options){const response=await fetch('/api/encuesta',{cache:'no-store',...options});const data=await response.json();if(!response.ok)throw new Error(data.error||'No se pudo enviar.');return data;}
- form.addEventListener('change',()=>{const other=new FormData(form).get('opcion')==='D';text.disabled=!other;text.required=other;});
- form.addEventListener('submit',async event=>{event.preventDefault();const option=new FormData(form).get('opcion'),suggestion=option==='D'?text.value.trim():'';field.disabled=true;status.textContent='Enviando…';try{render(await request({method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({option,suggestion})}));}catch(error){field.disabled=false;status.textContent=error.message;}});
- request().then(data=>{if(data.voted)render(data);else{field.disabled=false;status.textContent='Elige una opción para participar.';}}).catch(()=>{status.textContent='Encuesta temporalmente no disponible. Vuelve más tarde.';});
+ function lock(value){busy=value;for(const button of Object.values(buttons))button.disabled=value||voted;other.querySelector('button').disabled=value||voted;text.disabled=value||voted;}
+ function render(data){
+  if(!data.voted)throw new Error('No se confirmó el voto. Intenta otra vez.');
+  voted=true;lock(false);other.hidden=true;poll.classList.add('poll-voted');
+  for(const [key,button] of Object.entries(buttons)){const percent=data.total?Math.round(100*(data.counts[key]||0)/data.total):0;button.querySelector('.poll-percent').hidden=false;button.querySelector('.poll-percent').textContent=percent+'%';button.setAttribute('aria-label',labels[key]+': '+percent+'%');requestAnimationFrame(()=>{button.querySelector('.poll-fill').style.width=percent+'%';});}
+  status.textContent='¡Gracias por votar!';
+ }
+ async function request(options={}){const response=await fetch('/api/encuesta',{cache:'no-store',...options});const data=await response.json();if(!response.ok)throw new Error(data.error||'No se pudo enviar.');return data;}
+ async function send(option,suggestion){if(busy||voted)return;lock(true);status.textContent='Guardando…';try{render(await request({method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({option,suggestion})}));}catch(error){lock(false);status.textContent=error.message;}}
+ other.addEventListener('submit',event=>{event.preventDefault();const suggestion=text.value.trim();if(!suggestion||suggestion.length>50){text.setCustomValidity('Escribe entre 1 y 50 caracteres.');text.reportValidity();return;}send('D',suggestion);});
+ text.addEventListener('input',()=>text.setCustomValidity(''));
+ request().then(data=>{if(data.voted)render(data);else{lock(false);status.textContent='Toca una opción para votar';}}).catch(()=>{status.textContent='Encuesta no disponible por ahora.';});
 }

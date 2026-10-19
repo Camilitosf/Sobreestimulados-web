@@ -17,7 +17,7 @@ export async function onRequest({request,env}){
    let data;try{data=JSON.parse(raw);}catch{return reply({error:'Respuesta inválida'},400);}
    if(!data||!choices.includes(data.option))return reply({error:'Elige una opción válida'},400);
    const suggestion=data.option==='D'&&typeof data.suggestion==='string'?data.suggestion.trim():'';
-   if(data.option==='D'&&(!suggestion||suggestion.length>300))return reply({error:'Escribe entre 1 y 300 caracteres'},400);
+   if(data.option==='D'&&(!suggestion||suggestion.length>50))return reply({error:'Escribe entre 1 y 50 caracteres'},400);
    await env.ENCUESTA_DB.prepare('INSERT INTO votos (token, opcion, sugerencia) VALUES (?, ?, ?) ON CONFLICT(token) DO NOTHING').bind(token,data.option,suggestion).run();
   }
   const voted=Boolean(await env.ENCUESTA_DB.prepare('SELECT 1 AS ok FROM votos WHERE token=?').bind(token).first());

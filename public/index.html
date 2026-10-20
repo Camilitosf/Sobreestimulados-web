@@ -23,6 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/encuesta.css">
 <style>
 .logo-title,.hero-title{font-family:"League Spartan",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:700}
 .hero-title{letter-spacing:.02em}
@@ -92,7 +93,27 @@
 <article class="tarjeta producto"><img class="foto-producto" src="/pines-broches.jpg" alt="Pines y broches" loading="lazy" decoding="async" width="800" height="1000"><span class="categoria">ACCESORIOS</span><h3>Pines/Broches</h3><p class="precio">$3.000 <small>CLP c/u</small></p><a class="boton boton-principal" href="https://www.instagram.com/sobrestimulados_org/" target="_blank" rel="noopener noreferrer" aria-label="Consultar por Instagram sobre Pines/Broches">Consultar por Instagram ↗</a></article>
 </div></section>
 <section id="comunidad" class="seccion" aria-labelledby="titulo-comunidad"><h2 id="titulo-comunidad">Lo que estamos preparando</h2><div class="tarjetas"><article class="tarjeta"><span class="categoria">APRENDIZAJE</span><h3>Fisiología y medicina</h3><p>Un espacio para explorar conceptos, conectar ideas y aprender juntos. Próximamente.</p></article><article class="tarjeta"><span class="categoria">COMUNIDAD</span><h3>Más que estudiar</h3><p>Novedades, experiencias y proyectos para compartir nuestra vida universitaria.</p></article></div></section>
+<section id="encuesta" class="seccion encuesta-seccion" aria-labelledby="titulo-encuesta">
+<p class="etiqueta">TU OPINIÓN</p>
+<h2 id="titulo-encuesta">¿Qué producto quieres ver primero?</h2>
+<div class="survey-section">
+<div class="survey-card">
+<p class="survey-question">Elige el producto que más te interesa:</p>
+<div class="survey-options" role="group" aria-label="Opciones de la encuesta">
+<button class="poll-option" type="button" data-option="fonendoscopios"><span class="option-label">Fonendoscopios</span><span class="option-result"><span class="option-bar" aria-hidden="true"></span><span class="option-percent">0%</span></span></button>
+<button class="poll-option" type="button" data-option="kits-sutura"><span class="option-label">Kits de sutura</span><span class="option-result"><span class="option-bar" aria-hidden="true"></span><span class="option-percent">0%</span></span></button>
+<button class="poll-option" type="button" data-option="pines-broches"><span class="option-label">Pines y broches</span><span class="option-result"><span class="option-bar" aria-hidden="true"></span><span class="option-percent">0%</span></span></button>
+<button class="poll-option" type="button" data-option="accesorios-estudio"><span class="option-label">Accesorios de estudio</span><span class="option-result"><span class="option-bar" aria-hidden="true"></span><span class="option-percent">0%</span></span></button>
+</div>
+<p class="survey-status" role="status" aria-live="polite">Vota para ver los resultados.</p>
+</div>
+<div class="survey-description">
+<p>Con tus opiniones nos ayudas a traer productos que estudiantes como tú en realidad necesitan</p>
+</div>
+</div>
+</section>
 </main>
 <footer><div class="contenedor"><p>Sobreestimulados</p><nav aria-label="Enlaces legales"><a href="/privacidad.html">Política de privacidad</a> · <a href="/terminos.html">Términos y condiciones</a></nav></div></footer>
+<script src="/encuesta.js" defer></script>
 </body>
 </html>

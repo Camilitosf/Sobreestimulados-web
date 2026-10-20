@@ -1,6 +1,6 @@
 :root{--survey-naranja:#FF5500;--survey-naranja-activo:#FF6600;--survey-fondo:#0D0D0D;--survey-opcion:#1A1A1A;--survey-borde:#333333;--survey-texto:#E0E0E0}
 .encuesta-seccion{padding-top:8px}
-.survey-section{display:flex;flex-direction:column;align-items:stretch;gap:40px;max-width:1000px;margin:0 auto}
+.survey-section{display:flex;flex-direction:column;align-items:stretch;gap:40px;max-width:100%;margin:0 auto}
 .survey-card{flex:1;min-width:0;background-color:var(--survey-fondo);border:1.5px solid var(--survey-naranja);border-radius:20px;padding:24px;box-shadow:0 0 20px rgba(255,85,0,.45),inset 0 0 10px rgba(255,85,0,.10)}
 .survey-question{margin:0 0 18px;color:#FFFFFF;font-size:1.05rem;font-weight:700}
 .survey-options{display:grid;gap:12px}
@@ -16,7 +16,7 @@
 .poll-option.selected .option-percent,.poll-option.winner .option-percent{color:#FFFFFF;font-weight:800}
 .survey-status{margin:16px 0 0;color:#C7C7C7;font-size:.9rem}
 .survey-description{flex:1;display:flex;align-items:center}
-.survey-description p{max-width:420px;margin:0;color:#F5F5F5;font-size:clamp(1.05rem,2.2vw,1.25rem);line-height:1.6;font-weight:500}
+.survey-description p{max-width:420px;margin:0;color:#F5F5F5;font-size:clamp(1.05rem,2.2vw,1.25rem);line-height:1.6;font-weight:500;text-align:left}
 @media(min-width:820px){.survey-section{flex-direction:row;align-items:center}}
-@media(max-width:819px){.survey-description{order:2;justify-content:center;text-align:center}.survey-description p{max-width:34ch}}
+@media(max-width:819px){.survey-description{order:2;justify-content:flex-start;text-align:left}.survey-description p{max-width:34ch}}
 @media (prefers-reduced-motion:reduce){.poll-option,.option-bar::after{transition:none}}

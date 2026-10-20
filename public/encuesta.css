@@ -1,0 +1,22 @@
+:root{--survey-naranja:#FF5500;--survey-naranja-activo:#FF6600;--survey-fondo:#0D0D0D;--survey-opcion:#1A1A1A;--survey-borde:#333333;--survey-texto:#E0E0E0}
+.encuesta-seccion{padding-top:8px}
+.survey-section{display:flex;flex-direction:column;align-items:stretch;gap:40px;max-width:1000px;margin:0 auto}
+.survey-card{flex:1;min-width:0;background-color:var(--survey-fondo);border:1.5px solid var(--survey-naranja);border-radius:20px;padding:24px;box-shadow:0 0 20px rgba(255,85,0,.45),inset 0 0 10px rgba(255,85,0,.10)}
+.survey-question{margin:0 0 18px;color:#FFFFFF;font-size:1.05rem;font-weight:700}
+.survey-options{display:grid;gap:12px}
+.poll-option{display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;width:100%;min-height:56px;padding:14px 16px;background-color:var(--survey-opcion);border:1px solid var(--survey-borde);border-radius:12px;color:var(--survey-texto);font:inherit;font-weight:600;text-align:left;cursor:pointer;transition:border-color .2s ease,box-shadow .2s ease,background-color .2s ease,color .2s ease}
+.poll-option:hover{border-color:#5A2A10;color:#FFFFFF}
+.poll-option:focus-visible{outline:3px solid #FF5A1F;outline-offset:3px}
+.option-label{min-width:0}
+.option-result{display:flex;align-items:center;gap:10px;min-width:118px}
+.option-bar{position:relative;flex:1;height:8px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.option-bar::after{content:"";position:absolute;inset:0;width:var(--porcentaje,0%);background:linear-gradient(90deg,#FF5500,#FF8A1E);border-radius:inherit;transition:width .35s ease}
+.option-percent{min-width:42px;text-align:right;font-size:.9rem;color:#C7C7C7}
+.poll-option.selected,.poll-option.winner{background-color:#1F0E05;border:2px solid var(--survey-naranja-activo);color:#FFFFFF;box-shadow:0 0 12px rgba(255,102,0,.70)}
+.poll-option.selected .option-percent,.poll-option.winner .option-percent{color:#FFFFFF;font-weight:800}
+.survey-status{margin:16px 0 0;color:#C7C7C7;font-size:.9rem}
+.survey-description{flex:1;display:flex;align-items:center}
+.survey-description p{max-width:420px;margin:0;color:#F5F5F5;font-size:clamp(1.05rem,2.2vw,1.25rem);line-height:1.6;font-weight:500}
+@media(min-width:820px){.survey-section{flex-direction:row;align-items:center}}
+@media(max-width:819px){.survey-description{order:2;justify-content:center;text-align:center}.survey-description p{max-width:34ch}}
+@media (prefers-reduced-motion:reduce){.poll-option,.option-bar::after{transition:none}}

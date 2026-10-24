@@ -1,0 +1,15 @@
+.has-announcement{--announcement-height:36px}
+.has-announcement body{padding-top:calc(92px + var(--announcement-height) + env(safe-area-inset-top))}
+.has-announcement .header-wrapper{top:calc(var(--announcement-height) + max(16px,env(safe-area-inset-top)))}
+.announcement-bar{position:fixed;inset:0 0 auto;z-index:1001;height:calc(var(--announcement-height) + env(safe-area-inset-top));padding-top:env(safe-area-inset-top);background:#272727;color:#f5f5f5;font-family:Arial,sans-serif;font-size:13px;line-height:var(--announcement-height);overflow:hidden}
+.announcement-viewport{width:100%;overflow:hidden}
+.announcement-track{display:flex;width:max-content;animation:announcement-scroll 34s linear infinite;will-change:transform}
+.announcement-group{display:flex;flex:0 0 auto;align-items:center;justify-content:center;gap:clamp(40px,5vw,96px);width:max-content;min-width:100vw;padding:0 48px;box-sizing:border-box;white-space:nowrap}
+.announcement-separator{color:#c7c7c7}
+.announcement-readable{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.announcement-pause{position:absolute;right:0;bottom:0;width:32px;height:36px;display:grid;place-items:center;border:0;border-radius:0;background:#272727;color:#f5f5f5;font:inherit;line-height:1;cursor:pointer}
+.announcement-pause:focus-visible{outline:2px solid #FF5A1F;outline-offset:-3px}
+.announcement-bar:hover .announcement-track,.announcement-bar:focus-within .announcement-track,.announcement-bar.is-paused .announcement-track{animation-play-state:paused}
+@keyframes announcement-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:600px){.announcement-bar{font-size:12px}.announcement-group{gap:40px}}
+@media(prefers-reduced-motion:reduce){.has-announcement{--announcement-height:96px}.announcement-track{animation:none;transform:none;will-change:auto;width:100%}.announcement-group{width:100%;min-width:0;height:96px;flex-wrap:wrap;align-content:center;gap:0 12px;padding:6px 16px;white-space:normal;text-align:center;line-height:1.5}.announcement-group>span:last-child{flex-basis:100%}.announcement-group+.announcement-group,.announcement-pause{display:none}}

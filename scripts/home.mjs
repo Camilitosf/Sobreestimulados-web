@@ -10,6 +10,10 @@ js=js.replace(/\/poll\.css\?v=[^'"\s]+/g,'/poll.css?v='+hash(css));
 await writeFile(asset('home.js'),js);
 const homeCss=await readFile(asset('home.css'),'utf8');
 html=html.replace('<h2 id="titulo-productos">Nuestros productos</h2>','<h2 id="titulo-productos"><a href="/productos.html">Nuestros productos</a></h2>');
+const placeholder=' Aquí puedes escribir la historia completa de Sobreestimulados: cómo comenzó, qué los motiva y hacia dónde quieren llegar.';
+const history='</p>\n<p>A comienzos de 2026, como parte de una tarea universitaria, se nos pidió crear una cuenta dedicada a divulgar información científica basada en papers y artículos verificables. 🔬📚</p>\n<p>Al descubrir el potencial de Sobreestimulados, decidimos emprender compartiendo contenido científico y ofreciendo artículos y accesorios, primero para estudiantes de medicina y posteriormente para estudiantes de otras áreas de la salud. 🩺</p>\n<p>Nuestro objetivo es hacer más accesibles los productos y servicios que realmente necesitan los estudiantes durante su formación académica. 💡';
+if(html.includes(placeholder))html=html.replace(placeholder,history);
+else if(!html.includes('A comienzos de 2026, como parte de una tarea universitaria'))throw new Error('No se encontró el texto esperado de Quiénes somos; revisar antes de publicar.');
 const poll=await readFile(new URL('./encuesta.html',import.meta.url),'utf8');
 if(/<section\b[^>]*\bid="encuesta"/.test(html))html=html.replace(/<section\b[^>]*\bid="encuesta"[^>]*>[\s\S]*?<\/section>/,()=>poll);
 else html=html.replace('<section id="comunidad"',poll+'\n<section id="comunidad"');
@@ -17,4 +21,4 @@ html=html.replace(/<link\b[^>]*href=["']\/home\.css(?:\?[^"']*)?["'][^>]*>/gi,''
 html=html.replace(/<script\b[^>]*src=["']\/home\.js(?:\?[^"']*)?["'][^>]*>\s*<\/script>/gi,'');
 html=html.replace('</head>',`<link rel="stylesheet" href="/home.css?v=${hash(homeCss)}"><script src="/home.js?v=${hash(js)}" defer></script></head>`);
 await writeFile(file,html);
-console.log('Portada actualizada: encuesta de 50 caracteres y recursos versionados por contenido.');
+console.log('Portada actualizada: historia, encuesta editable y recursos versionados por contenido.');

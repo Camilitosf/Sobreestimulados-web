@@ -1,24 +1,28 @@
-#encuesta{max-width:420px;margin:24px auto;padding:16px;box-sizing:border-box;--poll-orange:var(--naranja,#FF5A1F);--poll-amber:var(--naranja-hover,#FF8A1E)}
-#encuesta .poll-card{padding:24px 20px;background:linear-gradient(145deg,#202020,#101010);border:1px solid #804024;border-radius:26px;box-shadow:0 12px 32px #0006,0 0 24px #ff5a1f12;color:#fff}
+#encuesta{max-width:none;margin:24px 0;padding:0;box-sizing:border-box;--poll-orange:var(--naranja,#FF5A1F);--poll-amber:var(--naranja-hover,#FF8A1E)}
+#encuesta .poll-layout{display:grid;grid-template-columns:1fr;gap:32px;align-items:center}
+#encuesta .poll-card{width:100%;max-width:460px;margin:0 auto;padding:28px 24px;box-sizing:border-box;background:#0D0D0D;border:2px solid var(--poll-orange);border-radius:28px;box-shadow:0 0 28px rgba(255,90,31,.55),inset 0 0 18px rgba(255,90,31,.12);color:#fff}
+#encuesta .poll-quote{max-width:460px;margin:0 auto;padding:4px 0 4px 20px;border-left:3px solid var(--poll-orange);font-size:clamp(1.15rem,2.4vw,1.5rem);line-height:1.5;font-weight:500;color:#F5F5F5;text-align:left}
 #encuesta h2{margin:0 0 20px;text-align:center;font-size:1.3rem;line-height:1.3;color:#fff}
-#encuesta #poll-options{display:grid;gap:10px}
-#encuesta .poll-choice{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:46px;margin:0;padding:11px 16px;border:1px solid #75503D;border-radius:999px;background:#302824;color:#fff;font:inherit;font-weight:600;text-align:left;cursor:pointer;opacity:1}
-#encuesta .poll-fill{position:absolute;z-index:-1;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,#A3340C,#9A440C);transition:width .45s ease}
+#encuesta #poll-options{display:grid;gap:12px}
+#encuesta .poll-choice{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:48px;margin:0;padding:11px 20px;border:2px solid transparent;border-radius:999px;background:#1A1A1A;color:#fff;font:inherit;font-weight:600;text-align:left;cursor:pointer;opacity:1;transition:border-color .2s ease,box-shadow .2s ease,background-color .2s ease}
+#encuesta .poll-fill{position:absolute;z-index:-1;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,rgba(255,90,31,.42),rgba(255,138,30,.20));transition:width .45s ease}
 #encuesta .poll-label{flex:1;overflow-wrap:anywhere;color:#fff}
-#encuesta .poll-percent{font-size:.9rem;font-weight:700;color:#fff}
+#encuesta .poll-percent{font-size:.95rem;font-weight:700;color:#fff}
 #encuesta .poll-choice:disabled{cursor:default;opacity:1}
-#encuesta:not(.poll-voted) .poll-choice:enabled:hover{background:#59321F;border-color:var(--poll-orange)}
+#encuesta .poll-choice.poll-mine{border-color:var(--poll-amber);box-shadow:0 0 14px rgba(255,138,30,.80),inset 0 0 8px rgba(255,138,30,.30)}
+#encuesta:not(.poll-voted) .poll-choice:enabled:hover{background:#242424;border-color:var(--poll-orange)}
 #encuesta #poll-other{margin-top:14px}
 #encuesta #poll-other[hidden]{display:none}
 #encuesta #poll-other label{margin:0 0 7px;font-size:.8rem;color:#fff}
 #encuesta .poll-entry{display:flex;gap:8px}
-#encuesta #poll-text{box-sizing:border-box;width:100%;min-width:0;min-height:40px;padding:8px 12px;border:1px solid #805138;border-radius:12px;background:#191919;color:#fff;font:inherit}
-#encuesta #poll-text::placeholder{color:#fff;opacity:1}
-#encuesta .poll-entry button{margin:0;min-height:40px;padding:8px 14px;border:1px solid #FF5A1F;border-radius:12px;background:linear-gradient(110deg,#A3340C,#9A440C);color:#fff;font:inherit;font-weight:700;cursor:pointer}
-#encuesta .poll-entry button:enabled:hover{background:#8D300E}
-#encuesta #poll-status{margin:12px 0 0;text-align:center;font-size:.8rem;color:#fff}
+#encuesta #poll-text{box-sizing:border-box;width:100%;min-width:0;min-height:40px;padding:8px 12px;border:1px solid var(--poll-orange);border-radius:12px;background:#1A1A1A;color:#fff;font:inherit}
+#encuesta #poll-text::placeholder{color:#fff;opacity:.7}
+#encuesta .poll-entry button{margin:0;min-height:40px;padding:8px 14px;border:1px solid var(--poll-orange);border-radius:12px;background:var(--poll-orange);color:#000;font:inherit;font-weight:700;cursor:pointer}
+#encuesta .poll-entry button:enabled:hover{background:var(--poll-amber)}
+#encuesta #poll-status{margin:14px 0 0;text-align:center;font-size:.85rem;color:#fff}
 #encuesta .poll-privacy{margin-top:12px;font-size:.72rem;color:#fff}
 #encuesta .poll-privacy summary{cursor:pointer;text-align:center;color:#fff}
 #encuesta .poll-privacy p{margin:8px 0 0;line-height:1.5;font-size:inherit;color:#fff}
 #encuesta :focus-visible{outline:3px solid var(--poll-amber);outline-offset:3px}
-@media(prefers-reduced-motion:reduce){#encuesta .poll-fill{transition:none}}
+@media(min-width:820px){#encuesta .poll-layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px}#encuesta .poll-card{margin:0;justify-self:start}#encuesta .poll-quote{margin:0}}
+@media(prefers-reduced-motion:reduce){#encuesta .poll-fill,#encuesta .poll-choice{transition:none}}

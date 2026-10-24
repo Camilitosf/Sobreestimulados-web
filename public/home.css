@@ -1,2 +1,3 @@
 #productos>.etiqueta,#productos>#titulo-productos{text-align:center}
 #titulo-productos a{color:inherit;text-decoration:none}#titulo-productos a:hover{text-decoration:underline}
+@media(min-width:900px){main .hero-contenido{margin-left:clamp(0px,6vw,96px)}}

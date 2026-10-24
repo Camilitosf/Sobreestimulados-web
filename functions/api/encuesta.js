@@ -1,4 +1,4 @@
-const choices=['fonendoscopios','kits-sutura','pines-broches','accesorios-estudio'];
+const choices=['fonendoscopios','kits-sutura','pines-broches','accesorios-estudio','A','B','C','D'];
 const reply=(data,status=200,cookie)=>Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...(cookie?{'Set-Cookie':cookie}:{})}});
 const sha256=async text=>{const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text));return Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');};
 export async function onRequest({request,env}){

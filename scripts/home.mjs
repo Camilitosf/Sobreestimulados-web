@@ -9,7 +9,6 @@ let js=await readFile(asset('home.js'),'utf8');
 js=js.replace(/\/poll\.css\?v=[^'"\s]+/g,'/poll.css?v='+hash(css));
 await writeFile(asset('home.js'),js);
 const homeCss=await readFile(asset('home.css'),'utf8');
-html=html.replace('<header>','<header id="home-header">');
 html=html.replace('<h2 id="titulo-productos">Nuestros productos</h2>','<h2 id="titulo-productos"><a href="/productos.html">Nuestros productos</a></h2>');
 const poll=await readFile(new URL('./encuesta.html',import.meta.url),'utf8');
 if(/<section\b[^>]*\bid="encuesta"/.test(html))html=html.replace(/<section\b[^>]*\bid="encuesta"[^>]*>[\s\S]*?<\/section>/,()=>poll);

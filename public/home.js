@@ -1,6 +1,4 @@
 'use strict';
-const header=document.querySelector('#home-header'),logo=document.querySelector('.logo-portada');
-if(header&&logo){const small=logo.cloneNode();small.className='logo-header';small.alt='';header.append(small);new IntersectionObserver(([entry])=>{header.classList.toggle('compacto',!entry.isIntersecting&&logo.getBoundingClientRect().top<0);},{threshold:0}).observe(logo);}
 const poll=document.querySelector('#encuesta');
 if(poll){
  const css=document.createElement('link');css.rel='stylesheet';css.href='/poll.css?v=2';document.head.append(css);

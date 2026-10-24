@@ -1,4 +1,4 @@
-const choices=['fonendoscopios','kits-sutura','pines-broches','accesorios-estudio','A','B','C','D'];
+const choices=['A','B','C','D'];
 const reply=(data,status=200,cookie)=>Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...(cookie?{'Set-Cookie':cookie}:{})}});
 const sha256=async text=>{const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text));return Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');};
 export async function onRequest({request,env}){
@@ -18,7 +18,9 @@ export async function onRequest({request,env}){
    const raw=await request.text();if(new TextEncoder().encode(raw).length>2048)return reply({error:'Respuesta demasiado larga'},413);
    let data;try{data=JSON.parse(raw);}catch{return reply({error:'Respuesta inválida'},400);}
    if(!data||!choices.includes(data.option))return reply({error:'Elige una opción válida'},400);
-   await env.ENCUESTA_DB.prepare('INSERT INTO votos (token, opcion, sugerencia) VALUES (?, ?, ?) ON CONFLICT(token) DO NOTHING').bind(key,data.option,'').run();
+   const suggestion=data.option==='D'&&typeof data.suggestion==='string'?data.suggestion.trim():'';
+   if(data.option==='D'&&(!suggestion||suggestion.length>50))return reply({error:'Escribe entre 1 y 50 caracteres'},400);
+   await env.ENCUESTA_DB.prepare('INSERT INTO votos (token, opcion, sugerencia) VALUES (?, ?, ?) ON CONFLICT(token) DO NOTHING').bind(key,data.option,suggestion).run();
   }
   const mine=await env.ENCUESTA_DB.prepare('SELECT opcion FROM votos WHERE token=?').bind(key).first();
   if(!mine)return reply({voted:false},200,cookie);

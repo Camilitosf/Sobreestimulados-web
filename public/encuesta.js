@@ -1,23 +1,28 @@
 (function(){
 'use strict';
 if(!document.querySelector('.header-wrapper')||document.querySelector('.announcement-bar'))return;
-const stylesheet=document.createElement('link');
-stylesheet.rel='stylesheet';stylesheet.href='/anuncios.css?v=1';document.head.append(stylesheet);
+const stylesheet=document.createElement('link');stylesheet.rel='stylesheet';stylesheet.href='/anuncios.css?v=2';document.head.append(stylesheet);
 const bar=document.createElement('aside');bar.className='announcement-bar';bar.setAttribute('aria-label','Ubicación y descuento para estudiantes');
-const readable=document.createElement('p');readable.className='announcement-readable';readable.textContent='Punta Arenas, Magallanes, CL 🇨🇱 • Si estudias Medicina en la UMAG, utiliza tu código "CEM-UMAG10" para obtener un 10%.';
+const readable=document.createElement('p');readable.className='announcement-readable';readable.textContent='Punta Arenas, Magallanes, CL, Chile. Si estudias Medicina en la UMAG, utiliza tu código "CEM-UMAG10" para obtener un 10%.';
 const viewport=document.createElement('div');viewport.className='announcement-viewport';viewport.setAttribute('aria-hidden','true');
 const track=document.createElement('div');track.className='announcement-track';
 for(let i=0;i<2;i++){
  const group=document.createElement('div');group.className='announcement-group';
- const location=document.createElement('span');location.textContent='Punta Arenas, Magallanes, CL 🇨🇱';
- const separator=document.createElement('span');separator.className='announcement-separator';separator.textContent='•';
- const offer=document.createElement('span');offer.textContent='Si estudias Medicina en la UMAG, utiliza tu código "CEM-UMAG10" para obtener un 10%.';
- group.append(location,separator,offer);track.append(group);
+ for(let j=0;j<4;j++){
+  const location=document.createElement('span');location.className='announcement-location';location.textContent='Punta Arenas, Magallanes, CL';
+  const flag=document.createElement('img');flag.src='/bandera-chile.svg';flag.alt='';flag.width=21;flag.height=14;flag.className='announcement-flag';location.append(flag);
+  const separator=document.createElement('span');separator.className='announcement-separator';separator.textContent='•';
+  const offer=document.createElement('span');offer.textContent='Si estudias Medicina en la UMAG, utiliza tu código "CEM-UMAG10" para obtener un 10%.';
+  group.append(location,separator,offer,separator.cloneNode(true));
+ }
+ track.append(group);
 }
-viewport.append(track);
-const pause=document.createElement('button');pause.type='button';pause.className='announcement-pause';pause.textContent='Ⅱ';pause.setAttribute('aria-label','Pausar anuncios');pause.setAttribute('aria-pressed','false');
-pause.addEventListener('click',()=>{const paused=bar.classList.toggle('is-paused');pause.setAttribute('aria-pressed',String(paused));pause.setAttribute('aria-label',paused?'Reanudar anuncios':'Pausar anuncios');pause.textContent=paused?'▶':'Ⅱ';});
-bar.append(readable,viewport,pause);document.body.prepend(bar);document.documentElement.classList.add('has-announcement');
+viewport.append(track);bar.append(readable,viewport);document.body.prepend(bar);document.documentElement.classList.add('has-announcement');
+let pending=false;
+function updateOffset(){document.documentElement.style.setProperty('--announcement-offset',Math.max(0,bar.getBoundingClientRect().bottom)+'px');pending=false;}
+function schedule(){if(!pending){pending=true;requestAnimationFrame(updateOffset);}}
+window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule,{passive:true});
+stylesheet.addEventListener('load',schedule);window.addEventListener('pageshow',schedule);if(window.ResizeObserver)new ResizeObserver(schedule).observe(bar);updateOffset();
 })();
 
 (function(){
